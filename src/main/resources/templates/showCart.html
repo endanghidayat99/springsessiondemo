@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/jumbotron.css">
+    <title>List Product</title>
+</head>
+<body>
+<th:block th:include="/_header"></th:block>
+<div class="container">
+    <h2>List Product</h2>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cart : ${carts}">
+            <td th:text="${cart.value.id}"></td>
+            <td th:text="${cart.value.name}"></td>
+            <td th:text="${cart.value.price}"></td>
+            <td th:text="${cart.value.quantity}"></td>
+            <!--<td><a href="#" th:href="@{|/user/edit/${user.id}|}">Edit</a>|<a href="#" th:href="@{|/user/delete/${user.id}|}">Hapus</a></td>-->
+            <td>
+                <form method="post" action="#" th:action="@{/action}">
+                    <button type="submit" class="btn btn-outline-warning" name="edit" th:value="${cart.value.id}">Edit</button>
+                    <button type="submit" class="btn btn-outline-danger" name="delete" th:value="${cart.value.id}">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
+</html>
